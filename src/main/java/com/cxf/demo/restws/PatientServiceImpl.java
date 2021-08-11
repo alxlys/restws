@@ -1,8 +1,11 @@
 package com.cxf.demo.restws;
 
+import com.cxf.demo.restws.exceptions.PatientBusinessException;
 import com.cxf.demo.restws.model.Patient;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +39,11 @@ public class PatientServiceImpl implements PatientService {
 
    @Override
    public Patient getPatient(Long id) {
-      return patients.get(id);
+      Patient patient = patients.get(id);
+      if (patient == null) {
+         throw new NotFoundException();
+      }
+      return patient;
    }
 
    @Override
@@ -54,7 +61,7 @@ public class PatientServiceImpl implements PatientService {
          patients.put(patient.getId(), patient);
          response = Response.ok().build();
       } else {
-         response = Response.notModified().build();
+         throw new PatientBusinessException();
       }
       return response;
    }

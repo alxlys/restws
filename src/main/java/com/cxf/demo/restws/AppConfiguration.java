@@ -1,5 +1,6 @@
 package com.cxf.demo.restws;
 
+import com.cxf.demo.restws.exceptions.PatientBusinessExceptionExceptionMapper;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.jaxrs.JsonMappingExceptionMapper;
@@ -31,5 +32,10 @@ public class AppConfiguration {
    @Bean
    public JsonParseExceptionMapper jsonParseExceptionMapper() {
       return new JsonParseExceptionMapper();
+   }
+
+   @Bean
+   public PatientBusinessExceptionExceptionMapper patientBusinessExceptionExceptionMapper() {
+      return new PatientBusinessExceptionExceptionMapper();
    }
 }
